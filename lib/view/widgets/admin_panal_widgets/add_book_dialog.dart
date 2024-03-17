@@ -96,7 +96,7 @@ class AddBookDialog extends StatelessWidget {
                         adminController.addNewBook(
                           title: titleController.text,
                           category: categoryController.text,
-                          author: authorController.text,
+                          author: authorController.text, context: context,
                         );
                       }
                     },

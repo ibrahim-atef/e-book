@@ -208,6 +208,7 @@ class AdminHomeController extends GetxController {
     required String title,
     required String category,
     required String author,
+    required BuildContext context,
   }) async {
     isUploadingNewBook.value = true;
 
@@ -250,7 +251,7 @@ class AdminHomeController extends GetxController {
       // Show success message and navigate back
       showSnackbar("Done", "New book added successfully", Colors.greenAccent);
       isUploadingNewBook.value = false;
-      Get.back();
+     Navigator.pop(context);
     } catch (e) {
       // Handle any errors during the process
       print('Error adding new book: $e');

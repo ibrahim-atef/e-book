@@ -14,7 +14,10 @@ class AuthMiddleware extends GetMiddleware {
     if (route == Routes.adminHomeScreen && authController.isAdminX == false) {
       // Redirect to unauthorized page for regular users
       return RouteSettings(name: '/unauthorized');
-    } else if (route == Routes.homeScreen && authController.isUserX == false) {
+    } else if (route == Routes.homeScreen &&    authController.isAdminX==true) {
+      // Redirect to unauthorized page for admins
+      return  null;
+    }else if (route == Routes.homeScreen && authController.isUserX == false || authController.isAdminX==true) {
       // Redirect to unauthorized page for admins
       return RouteSettings(name: '/unauthorized');
     }

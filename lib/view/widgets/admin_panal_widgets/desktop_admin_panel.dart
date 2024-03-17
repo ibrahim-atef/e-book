@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../logic/controllers/admin_home_controller.dart';
 
@@ -42,10 +43,11 @@ class DesktopAdminPanel extends StatelessWidget {
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
             itemBuilder: (BuildContext context, int index) {
+              String formattedDate = DateFormat('dd/MM/yyyy').format(adminController.usersWithRequist[index].registerDate.toDate());
               return Card(
                 margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ListTile(
-                  title: Text('${adminController.usersWithRequist[index].} - Requested on 10/03/2024'),
+                  title: Text('${adminController.usersWithRequist[index].name} - Requested on $formattedDate'),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [

@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
     } else if (savedRole == adminCollectionKey) {
       return Routes.adminHomeScreen;
     } else if (savedRole == usersCollectionKey) {
-      return Routes.homeScreen;
+      return Routes.userHomeScreen;
     } else {
       print("Unknown user role: $savedRole. Redirecting to login.");
       return Routes.loginScreen;

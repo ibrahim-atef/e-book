@@ -1,3 +1,4 @@
+import 'package:e_book/models/book_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -31,7 +32,9 @@ class DesktopAdminPanel extends StatelessWidget {
           ),
         ),
         SizedBox(height: 10),
-        _buildBookList(), // Function to build the book list
+        _buildBookList(books: []),
+        //TODO:: complete the design and logic here
+        // Function to build the book list
       ],
     );
   }
@@ -84,20 +87,9 @@ class DesktopAdminPanel extends StatelessWidget {
           ));
   }
 
-  Widget _buildBookList() {
+  Widget _buildBookList({required  List<Book> books }) {
     // This is a dummy list of books, replace it with your actual data
-    List<Map<String, dynamic>> books = [
-      {
-        'title': 'Book 1',
-        'category': 'Fiction',
-        'author': 'Author 1',
-      },
-      {
-        'title': 'Book 2',
-        'category': 'Non-fiction',
-        'author': 'Author 2',
-      },
-    ];
+
 
     return SizedBox(
       child: ListView.builder(
@@ -109,9 +101,9 @@ class DesktopAdminPanel extends StatelessWidget {
           return Card(
             margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
             child: ListTile(
-              title: Text(book['title']),
+              title: Text(book.title),
               subtitle: Text(
-                  'Category: ${book['category']}, Author: ${book['author']}'),
+                  'Category: ${book.category}, Author: ${book.author}'),
               trailing: IconButton(
                 icon: Icon(Icons.edit),
                 onPressed: () {

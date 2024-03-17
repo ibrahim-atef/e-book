@@ -1,7 +1,5 @@
 import 'package:e_book/logic/bindings/admin_home_binding.dart';
-import 'package:e_book/view/screens/admin_screens/admin_home_screen.dart';
-import 'package:e_book/view/screens/home_screen.dart';
-import 'package:e_book/view/screens/user/book_details_screen.dart';
+  import 'package:e_book/view/screens/user/book_details_screen.dart';
 import 'package:e_book/view/screens/user/user_home_screen.dart';
 import 'package:e_book/view/screens/utiles_screen/unauthorized_screen.dart';
 import '../logic/bindings/auth_binding.dart';
@@ -13,8 +11,7 @@ import '../view/screens/utiles_screen/not_activated_screen.dart';
 
 class Routes {
   static const loginScreen = "/loginScreen";
-  static const homeScreen = "/homeScreen";
-  static const adminHomeScreen = "/adminHomeScreen";
+   static const adminHomeScreen = "/adminHomeScreen";
   static const unauthorized = "/unauthorized";
   static const notActivatedScreen = "/notActivatedScreen";
   static const bookDetailsScreen = "/bookDetailsScreen";
@@ -23,11 +20,7 @@ class Routes {
   static final routes = [
     GetPage(
         name: loginScreen, page: () => LoginScreen(), binding: AuthBinding()),
-    GetPage(
-      name: homeScreen,
-      page: () => HomeScreen(),  
-      middlewares: [AuthMiddleware()],
-    ),
+
     GetPage(name: adminHomeScreen, page: () => UserHomeScreen(), middlewares: [
       AuthMiddleware(),
     ], bindings: [
@@ -47,7 +40,7 @@ class Routes {
     ),
      GetPage(
       name: userHomeScreen,
-      page: () => UserHomeScreen(),
+      page: () => UserHomeScreen(),middlewares: [AuthMiddleware()],
     ),
   ];
 }

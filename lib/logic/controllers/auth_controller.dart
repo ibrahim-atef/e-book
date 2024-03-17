@@ -80,7 +80,7 @@ class AuthController extends GetxController {
       LocalStorage.saveString(KUid, newUser.uid!);
       LocalStorage.saveString(KRole, usersCollectionKey);
       isSignUpLoading.value = false;
-      Get.offNamed(Routes.homeScreen);
+      Get.offNamed(Routes.userHomeScreen);
     } on FirebaseAuthException catch (error) {
       handleAuthError(error);
     } catch (error) {
@@ -112,7 +112,7 @@ class AuthController extends GetxController {
       } else {
         isUserX=true;
 
-        Get.offNamed(Routes.homeScreen);
+        Get.offNamed(Routes.userHomeScreen);
       }
 
     } on FirebaseAuthException catch (error) {
@@ -198,18 +198,7 @@ class AuthController extends GetxController {
     );
   }
 
-  ///>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Navigate to home screen based on user role
-  void navigateToHomeScreen(String role) {
-    if (role == adminCollectionKey) {
-      isAdminX=true;
 
-      Get.offNamed(Routes.adminHomeScreen);
-    } else {
-      isUserX=true;
-
-      Get.offNamed(Routes.homeScreen);
-    }
-  }
 
   ///>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Sign out from the app
   void signOutFromApp() async {

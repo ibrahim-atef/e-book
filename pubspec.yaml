@@ -47,13 +47,13 @@ dependencies:
   lottie:
   flutter_svg:
   shared_preferences:
-<<<<<<< HEAD
+
   file_picker:
   path:
 
-=======
+
   font_awesome_flutter: ^10.7.0
->>>>>>> origin/afroto
+
 
 
 dev_dependencies:

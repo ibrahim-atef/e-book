@@ -19,7 +19,7 @@ class BooksListViewItem extends StatelessWidget {
         Get.toNamed(Routes.bookDetailsScreen);
       },
       child: SizedBox(
-        height: MediaQuery.of(context).size.width * 0.18,
+        height: h * 0.3,
         child: Row(
           children: [
             const Padding(

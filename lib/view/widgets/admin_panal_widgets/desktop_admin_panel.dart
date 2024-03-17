@@ -45,7 +45,7 @@ class DesktopAdminPanel extends StatelessWidget {
               return Card(
                 margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: ListTile(
-                  title: Text('${adminController.usersWithRequist[index].} - Requested on 10/03/2024'),
+                  title: Text('${adminController.usersWithRequist[index]} - Requested on 10/03/2024'),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [

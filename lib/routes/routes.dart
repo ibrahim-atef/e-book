@@ -1,6 +1,7 @@
 import 'package:e_book/logic/bindings/admin_home_binding.dart';
 import 'package:e_book/view/screens/admin_screens/admin_home_screen.dart';
 import 'package:e_book/view/screens/home_screen.dart';
+import 'package:e_book/view/screens/user/user_homepage.dart';
 import 'package:e_book/view/screens/utiles_screen/unauthorized_screen.dart';
 import '../logic/bindings/auth_binding.dart';
 import '../services/middlewares_services/auth_middleware.dart';
@@ -21,10 +22,10 @@ class Routes {
         name: loginScreen, page: () => LoginScreen(), binding: AuthBinding()),
     GetPage(
       name: homeScreen,
-      page: () => HomeScreen(),
+      page: () => HomeScreen(),  // navigte to user screen علشان اشوف انا بعمل اي 
       middlewares: [AuthMiddleware()],
     ),
-    GetPage(name: adminHomeScreen, page: () => AdminHomeScreen(), middlewares: [
+    GetPage(name: adminHomeScreen, page: () => UserHomePage(), middlewares: [
       AuthMiddleware(),
     ], bindings: [
       AdminHomeBinding(),

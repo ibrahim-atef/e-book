@@ -108,7 +108,7 @@ class _SignUpCardState extends State<SignUpCard> {
                                 .flipCard(); // Add your sign-up functionality here
                           },
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.transparent,
+                            backgroundColor: Colors.transparent,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                               side: BorderSide(
@@ -258,7 +258,7 @@ class _SignUpCardState extends State<SignUpCard> {
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                            primary: Color(0xFF71C9CE),
+                            backgroundColor: Color(0xFF71C9CE),
                             // Adjust the opacity value
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),

@@ -204,53 +204,64 @@ class AdminHomeController extends GetxController {
     }
   }
 
-  // Add new book
   void addNewBook({
     required String title,
     required String category,
     required String author,
   }) async {
     isUploadingNewBook.value = true;
-    // Check if any of the required files (audio, image, PDF) is not selected
-    if (pdfFilePath == null || audioFilePath == null || imageFilePath == null) {
-      // Show a snackbar or dialog to inform the user to complete the data
-      isUploadingNewBook.value = false;
-      Get.snackbar(
-        "Incomplete Data",
-        "Please add all required files (BOOK PDF, BOOK VOICE, BOOK COVER).",
-        backgroundColor: Colors.red,
-        snackPosition: SnackPosition.TOP,
-      );
-      return; // Exit the method without proceeding
-    }
-    else {
-      String pdfLink =
-          await FireStoreMethods().uploadFileToFirebaseStorage(pdfFilePath!);
-      String coverLink =
-          await FireStoreMethods().uploadFileToFirebaseStorage(imageFilePath!);
-      String voiceLink =
-          await FireStoreMethods().uploadFileToFirebaseStorage(audioFilePath!);
 
-      if (pdfLink == null || voiceLink == null || coverLink == null) {
-      await  FireStoreMethods()
-            .insertNewBookToFireStore(
-                book: Book(
+    try {
+      // Check if any of the required files (audio, image, PDF) is not selected
+      if (pdfFilePath == null || audioFilePath == null || imageFilePath == null) {
+        // Show a snackbar or dialog to inform the user to complete the data
+        isUploadingNewBook.value = false;
+        Get.snackbar(
+          "Incomplete Data",
+          "Please add all required files (BOOK PDF, BOOK VOICE, BOOK COVER).",
+          backgroundColor: Colors.red,
+          snackPosition: SnackPosition.TOP,
+        );
+        return; // Exit the method without proceeding
+      }
+
+      // All required files are selected, proceed with uploading and adding the new book
+      String pdfLink = await FireStoreMethods().uploadFileToFirebaseStorage(pdfFilePath!);
+      String coverLink = await FireStoreMethods().uploadFileToFirebaseStorage(imageFilePath!);
+      String voiceLink = await FireStoreMethods().uploadFileToFirebaseStorage(audioFilePath!);
+
+      // Check if any upload failed
+      if (pdfLink == null || coverLink == null || voiceLink == null) {
+        throw Exception('Error uploading files to Firebase Storage.');
+      }
+
+      // All files uploaded successfully, now insert the new book to Firestore
+      await FireStoreMethods().insertNewBookToFireStore(
+        book: Book(
           title: title,
           coverImage: coverLink,
           pdfLink: pdfLink,
           category: category,
           author: author,
           voiceLink: voiceLink,
-        ))
-            .then((value) {
-              showSnackbar("done", "new book added successfully ", Colors.greenAccent);
-          isUploadingNewBook.value = false;
-          Get.back();
-        });
-      }  isUploadingNewBook.value = false;
-    }
+        ),
+      );
 
-    // All required files are selected, proceed with adding the new book logic
-    // Implement your logic here to add the new book using pdfFilePath, audioFilePath, and imageFilePath
+      // Show success message and navigate back
+      showSnackbar("Done", "New book added successfully", Colors.greenAccent);
+      isUploadingNewBook.value = false;
+      Get.back();
+    } catch (e) {
+      // Handle any errors during the process
+      print('Error adding new book: $e');
+      isUploadingNewBook.value = false;
+      Get.snackbar(
+        "Error",
+        "Failed to add new book. Please try again later.",
+        backgroundColor: Colors.red,
+        snackPosition: SnackPosition.TOP,
+      );
+    }
   }
+
 }

@@ -1,6 +1,8 @@
+import 'package:e_book/routes/routes.dart';
 import 'package:e_book/utils/styles.dart';
 import 'package:e_book/view/widgets/user_widgets/custome_book_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class BooksListViewItem extends StatelessWidget {
   const BooksListViewItem({
@@ -14,7 +16,7 @@ class BooksListViewItem extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        //  navigte to book details screen
+        Get.toNamed(Routes.bookDetailsScreen);
       },
       child: SizedBox(
         height: MediaQuery.of(context).size.width * 0.18,

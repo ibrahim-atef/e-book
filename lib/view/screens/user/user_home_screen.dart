@@ -1,8 +1,8 @@
 import 'package:e_book/view/widgets/user_widgets/books_list_view.dart';
 import 'package:flutter/material.dart';
 
-class UserHomePage extends StatelessWidget {
-  const UserHomePage({super.key});
+class UserHomeScreen extends StatelessWidget {
+  const UserHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

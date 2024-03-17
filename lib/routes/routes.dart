@@ -1,7 +1,8 @@
 import 'package:e_book/logic/bindings/admin_home_binding.dart';
 import 'package:e_book/view/screens/admin_screens/admin_home_screen.dart';
 import 'package:e_book/view/screens/home_screen.dart';
-import 'package:e_book/view/screens/user/user_homepage.dart';
+import 'package:e_book/view/screens/user/book_details_screen.dart';
+import 'package:e_book/view/screens/user/user_home_screen.dart';
 import 'package:e_book/view/screens/utiles_screen/unauthorized_screen.dart';
 import '../logic/bindings/auth_binding.dart';
 import '../services/middlewares_services/auth_middleware.dart';
@@ -16,16 +17,18 @@ class Routes {
   static const adminHomeScreen = "/adminHomeScreen";
   static const unauthorized = "/unauthorized";
   static const notActivatedScreen = "/notActivatedScreen";
+  static const bookDetailsScreen = "/bookDetailsScreen";
+  static const userHomeScreen = "/userHomeScreen";
 
   static final routes = [
     GetPage(
         name: loginScreen, page: () => LoginScreen(), binding: AuthBinding()),
     GetPage(
       name: homeScreen,
-      page: () => HomeScreen(),  // navigte to user screen علشان اشوف انا بعمل اي 
+      page: () => HomeScreen(),  
       middlewares: [AuthMiddleware()],
     ),
-    GetPage(name: adminHomeScreen, page: () => UserHomePage(), middlewares: [
+    GetPage(name: adminHomeScreen, page: () => UserHomeScreen(), middlewares: [
       AuthMiddleware(),
     ], bindings: [
       AdminHomeBinding(),
@@ -37,6 +40,14 @@ class Routes {
     GetPage(
       name: notActivatedScreen,
       page: () => NotActivatedScreen(),
+    ),
+    GetPage(
+      name: bookDetailsScreen,
+      page: () => BookDetailsScreen(),
+    ),
+     GetPage(
+      name: userHomeScreen,
+      page: () => UserHomeScreen(),
     ),
   ];
 }

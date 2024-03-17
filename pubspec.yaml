@@ -47,6 +47,8 @@ dependencies:
   lottie:
   flutter_svg:
   shared_preferences:
+  file_picker:
+
 
 
 dev_dependencies:

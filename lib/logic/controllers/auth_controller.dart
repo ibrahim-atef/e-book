@@ -76,7 +76,7 @@ class AuthController extends GetxController {
         true,
         Timestamp.now(),
       );
-      await _fireStoreMethods.insertStudentsInfoFireStorage(userModel: newUser);
+      await _fireStoreMethods.insertUserInfoFireStorage(userModel: newUser);
       LocalStorage.saveString(KUid, newUser.uid!);
       LocalStorage.saveString(KRole, usersCollectionKey);
       isSignUpLoading.value = false;
@@ -105,7 +105,16 @@ class AuthController extends GetxController {
     await  LocalStorage.saveString(KUid, userCredential.user!.uid.toString());
      await LocalStorage.saveString(KRole, role);
       isLoginLoading.value = false;
-    navigateToHomeScreen(role);
+      if (role == adminCollectionKey) {
+        isAdminX=true;
+
+        Get.offNamed(Routes.adminHomeScreen);
+      } else {
+        isUserX=true;
+
+        Get.offNamed(Routes.homeScreen);
+      }
+
     } on FirebaseAuthException catch (error) {
       handleAuthError(error);
       isLoginLoading.value = false;
@@ -193,6 +202,7 @@ class AuthController extends GetxController {
   void navigateToHomeScreen(String role) {
     if (role == adminCollectionKey) {
       isAdminX=true;
+
       Get.offNamed(Routes.adminHomeScreen);
     } else {
       isUserX=true;

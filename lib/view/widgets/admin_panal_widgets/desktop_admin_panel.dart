@@ -37,39 +37,49 @@ class DesktopAdminPanel extends StatelessWidget {
   }
 
   Widget _buildBookRequestCard() {
-    return Obx(() => adminController.usersWithRequist.length==0?SizedBox(child: Text('there is no user requist') ,): SizedBox(
-          child: ListView.builder(
-            itemCount: adminController.usersWithRequist.length,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemBuilder: (BuildContext context, int index) {
-              String formattedDate = DateFormat('dd/MM/yyyy').format(adminController.usersWithRequist[index].registerDate.toDate());
-              return Card(
-                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: ListTile(
-                  title: Text('${adminController.usersWithRequist[index].name} - Requested on $formattedDate'),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.check),
-                        onPressed: () {
-                          // Accept the user's registration request
-                        },
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.close),
-                        onPressed: () {
-                          // Reject the user's registration request
-                        },
-                      ),
-                    ],
+    return Obx(() => adminController.usersWithRequist.length == 0
+        ? SizedBox(
+            child: Center(child: Text('there is no user requist')),
+          )
+        : SizedBox(
+            child: ListView.builder(
+              itemCount: adminController.usersWithRequist.length,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (BuildContext context, int index) {
+                String formattedDate = DateFormat('dd/MM/yyyy').format(
+                    adminController.usersWithRequist[index].registerDate
+                        .toDate());
+                return Card(
+                  margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  child: ListTile(
+                    title: Text(
+                        '${adminController.usersWithRequist[index].name} - Requested on $formattedDate'),
+                    trailing:adminController.isDecliningUser.value||adminController.isConfirming.value?SizedBox(child: LinearProgressIndicator(color: Colors.blueAccent,),): Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.check),
+                          onPressed: () {
+                            adminController.confirmUserRequest(
+                                userId: adminController
+                                    .usersWithRequist[index].uid);
+                          },
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.close),
+                          onPressed: () {
+                            adminController.declineUserRequest(
+                                userId: adminController
+                                    .usersWithRequist[index].uid);                          },
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              );
-            },
-          ),
-        ));
+                );
+              },
+            ),
+          ));
   }
 
   Widget _buildBookList() {

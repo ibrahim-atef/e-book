@@ -11,6 +11,7 @@ String validationNameWithSpaces = r'^[a-zA-Z ]+$';
 
 const String usersCollectionKey = "users";
 const String adminCollectionKey = "admin";
+const String booksCollectionKey = "books";
  const String KUid = "uid";
  const String KRole = "role";
 

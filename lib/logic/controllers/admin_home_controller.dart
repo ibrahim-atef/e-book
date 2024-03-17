@@ -1,21 +1,20 @@
 import 'dart:html';
 
-import 'package:file_picker/file_picker.dart';
+import 'package:e_book/models/book_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../../models/user_model.dart';
 import '../../services/remote_services/firestore_methods.dart';
-import '../../view/widgets/admin_panal_widgets/add_book_dialog.dart';
 
 class AdminHomeController extends GetxController {
   // Observables
   RxList usersWithRequist = [].obs;
   RxBool isConfirming = false.obs;
   RxBool isDecliningUser = false.obs;
+  RxBool isUploadingNewBook = false.obs;
   RxString pdfPathName = "".obs;
   RxString audioPathName = "".obs;
   RxString imagePathName = "".obs;
@@ -25,9 +24,6 @@ class AdminHomeController extends GetxController {
 
   // FirebaseAuth instance and other helpers
   FirebaseAuth _auth = FirebaseAuth.instance;
-  final ImagePicker _imagePicker = ImagePicker();
-  final FileUploadInputElement _fileUploadInput = FileUploadInputElement();
-  final InputElement _voiceUploadInput = InputElement();
 
   // Lifecycle method
   @override
@@ -161,7 +157,8 @@ class AdminHomeController extends GetxController {
 
       // Handle limitations on Flutter web
       if (kIsWeb) {
-        print('**Important:** Direct image data access is limited on Flutter web.');
+        print(
+            '**Important:** Direct image data access is limited on Flutter web.');
         print('Consider server-side uploading or alternative approaches.');
         imageFilePath = file;
         imagePathName.value = file.name;
@@ -208,7 +205,52 @@ class AdminHomeController extends GetxController {
   }
 
   // Add new book
-  void addNewBook() {
-    // Implement adding a new book logic
+  void addNewBook({
+    required String title,
+    required String category,
+    required String author,
+  }) async {
+    isUploadingNewBook.value = true;
+    // Check if any of the required files (audio, image, PDF) is not selected
+    if (pdfFilePath == null || audioFilePath == null || imageFilePath == null) {
+      // Show a snackbar or dialog to inform the user to complete the data
+      isUploadingNewBook.value = false;
+      Get.snackbar(
+        "Incomplete Data",
+        "Please add all required files (BOOK PDF, BOOK VOICE, BOOK COVER).",
+        backgroundColor: Colors.red,
+        snackPosition: SnackPosition.TOP,
+      );
+      return; // Exit the method without proceeding
+    }
+    else {
+      String pdfLink =
+          await FireStoreMethods().uploadFileToFirebaseStorage(pdfFilePath!);
+      String coverLink =
+          await FireStoreMethods().uploadFileToFirebaseStorage(imageFilePath!);
+      String voiceLink =
+          await FireStoreMethods().uploadFileToFirebaseStorage(audioFilePath!);
+
+      if (pdfLink == null || voiceLink == null || coverLink == null) {
+      await  FireStoreMethods()
+            .insertNewBookToFireStore(
+                book: Book(
+          title: title,
+          coverImage: coverLink,
+          pdfLink: pdfLink,
+          category: category,
+          author: author,
+          voiceLink: voiceLink,
+        ))
+            .then((value) {
+              showSnackbar("done", "new book added successfully ", Colors.greenAccent);
+          isUploadingNewBook.value = false;
+          Get.back();
+        });
+      }  isUploadingNewBook.value = false;
+    }
+
+    // All required files are selected, proceed with adding the new book logic
+    // Implement your logic here to add the new book using pdfFilePath, audioFilePath, and imageFilePath
   }
 }

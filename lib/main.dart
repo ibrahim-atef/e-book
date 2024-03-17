@@ -3,12 +3,11 @@ import 'dart:ui';
 import 'package:e_book/logic/bindings/auth_binding.dart';
 import 'package:e_book/routes/routes.dart';
 import 'package:e_book/services/local_services/local_storage_helper.dart';
- import 'package:e_book/utils/my_strings.dart';
+import 'package:e_book/utils/my_strings.dart';
 import 'package:e_book/view/screens/utiles_screen/unauthorized_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,9 +19,11 @@ void main() async {
     apiKey: "AIzaSyAx9abhUmu7Tqx6NlunwigOtAVe9x8p8jg",
     appId: "1:346045156369:web:bea9df744cf77ff161b5b0",
     messagingSenderId: "346045156369",
+    storageBucket: "gs://e-book-df7e8.appspot.com",
     projectId: "e-book-df7e8",
   ));
-/// >>>>>>>>>>>>>>>>>>>>     flutter run -d chrome --web-hostname localhost --web-port 2081
+
+  /// >>>>>>>>>>>>>>>>>>>>     flutter run -d chrome --web-hostname localhost --web-port 2081
   runApp(MyApp());
 }
 
@@ -34,14 +35,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(initialBinding: AuthBinding(),scrollBehavior:  MaterialScrollBehavior().copyWith(
-      dragDevices: {
-        PointerDeviceKind.mouse,
-        PointerDeviceKind.touch,
-        PointerDeviceKind.stylus,
-        PointerDeviceKind.unknown
-      },
-    ),
+    return GetMaterialApp(
+      initialBinding: AuthBinding(),
+      scrollBehavior: MaterialScrollBehavior().copyWith(
+        dragDevices: {
+          PointerDeviceKind.mouse,
+          PointerDeviceKind.touch,
+          PointerDeviceKind.stylus,
+          PointerDeviceKind.unknown
+        },
+      ),
       debugShowCheckedModeBanner: false,
       title: 'E Book',
       theme: ThemeData(
@@ -50,19 +53,18 @@ class MyApp extends StatelessWidget {
       ),
       getPages: Routes.routes,
       unknownRoute: GetPage(
-        name: Routes.unauthorized ,
+        name: Routes.unauthorized,
         page: () => UnauthorizedScreen(),
       ),
-      initialRoute:determineInitialRoute(),
-
-     );
+      initialRoute: determineInitialRoute(),
+    );
   }
-
 
   String determineInitialRoute() {
     final savedRole = LocalStorage.getString("role");
     print(" saved role is $savedRole.");
-    if (savedRole == null) {      print("null user role: Redirecting to login.");
+    if (savedRole == null) {
+      print("null user role: Redirecting to login.");
       return Routes.loginScreen;
     } else if (savedRole == adminCollectionKey) {
       return Routes.adminHomeScreen;

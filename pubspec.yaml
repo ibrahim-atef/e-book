@@ -48,6 +48,7 @@ dependencies:
   flutter_svg:
   shared_preferences:
   file_picker:
+  path:
 
 
 

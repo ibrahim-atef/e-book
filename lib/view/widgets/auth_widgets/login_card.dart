@@ -135,7 +135,7 @@ class _LoginCardState extends State<LoginCard> {
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                            primary: Color(0xFF71C9CE),
+                            backgroundColor: Color(0xFF71C9CE),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
@@ -225,7 +225,7 @@ class _LoginCardState extends State<LoginCard> {
                               controller.flipCard();
                             },
                             style: ElevatedButton.styleFrom(
-                              primary: Colors.transparent,
+                              backgroundColor: Colors.transparent,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 side: BorderSide(color: Colors.white),

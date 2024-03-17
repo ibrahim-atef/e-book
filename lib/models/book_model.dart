@@ -17,7 +17,7 @@ class Book {
 
   });
 
-  factory Book.fromJson(Map<String, dynamic> json) {
+  factory Book.fromJson( json) {
     return Book(
        title: json['title'] ?? '',
       coverImage: json['coverImage'] ?? '',

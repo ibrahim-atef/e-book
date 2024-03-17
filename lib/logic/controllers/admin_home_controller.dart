@@ -12,6 +12,7 @@ import '../../services/remote_services/firestore_methods.dart';
 class AdminHomeController extends GetxController {
   // Observables
   RxList usersWithRequist = [].obs;
+  RxList<Book> booksList = <Book>[].obs;
   RxBool isConfirming = false.obs;
   RxBool isDecliningUser = false.obs;
   RxBool isUploadingNewBook = false.obs;
@@ -29,6 +30,7 @@ class AdminHomeController extends GetxController {
   @override
   void onInit() async {
     getUsersRequistList();
+    getBooksList();
     super.onInit();
   }
 
@@ -42,6 +44,19 @@ class AdminHomeController extends GetxController {
       usersWithRequist.clear();
       for (int i = 0; i < event.docs.length; i++) {
         usersWithRequist.add(UserModel.fromMap(event.docs[i]));
+      }
+      update();
+    });
+  }
+   getBooksList() async {
+    await FireStoreMethods()
+        .books
+
+        .snapshots()
+        .listen((event) {
+      booksList.clear();
+      for (int i = 0; i < event.docs.length; i++) {
+        booksList.add(Book.fromJson(event.docs[i]));
       }
       update();
     });
@@ -264,5 +279,7 @@ class AdminHomeController extends GetxController {
       );
     }
   }
+
+
 
 }

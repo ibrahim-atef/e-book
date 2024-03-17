@@ -4,10 +4,12 @@ import 'package:e_book/view/widgets/user_widgets/custome_book_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../models/book_model.dart';
+
 class BooksListViewItem extends StatelessWidget {
-  const BooksListViewItem({
-    super.key,
-  });
+  BooksListViewItem({required this.book});
+
+final  Book book;
 
   @override
   Widget build(BuildContext context) {
@@ -16,15 +18,15 @@ class BooksListViewItem extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Get.toNamed(Routes.bookDetailsScreen);
+        Get.toNamed(Routes.bookDetailsScreen,arguments: [book]);
       },
       child: SizedBox(
         height: h * 0.3,
         child: Row(
           children: [
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-              child: CustomBookImage(imageUrl: 'image url'),
+              child: CustomBookImage(imageUrl: book.coverImage),
             ),
             SizedBox(width: w * 0.05),
             Expanded(
@@ -34,21 +36,21 @@ class BooksListViewItem extends StatelessWidget {
                 children: [
                   SizedBox(
                     width: w * 0.5,
-                    child: const Text(
-                      'No Title',
+                    child:  Text(
+                      book.title,
                       style: Styles.textStyle20,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   SizedBox(height: h * .03),
-                  const Text(
-                    'authors',
+                    Text(
+                    book.author,
                     style: Styles.textStyle14,
                   ),
                   SizedBox(height: h * .03),
-                     const Text(
-                    'Category',
+                    Text(
+                    book.category,
                     style: Styles.textStyle14,
                   ),
                 ],

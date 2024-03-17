@@ -24,6 +24,7 @@ void main() async {
   ));
 
   /// >>>>>>>>>>>>>>>>>>>>     flutter run -d chrome --web-hostname localhost --web-port 2081
+  /// >>>>>>>>>>>>>>>>>>>>     flutter run -d chrome --web-renderer html --web-hostname localhost --web-port 2081
   runApp(MyApp());
 }
 

@@ -11,12 +11,24 @@ class CustomBookImage extends StatelessWidget {
       child: AspectRatio(
         aspectRatio: 2.6 / 4,
         child: Image.network(
-          'https://marketplace.canva.com/EAFfSnGl7II/2/0/1003w/canva-elegant-dark-woods-fantasy-photo-book-cover-vAt8PH1CmqQ.jpg', // Directly pass the imageUrl string here
-          fit: BoxFit.fill,
-          errorBuilder: (context, error, stackTrace) {
-          
-        
-            return const Icon(Icons.error_outline_outlined);
+          imageUrl,
+          errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+            return Center(
+              child: Text('Failed to load image'),
+            );
+          },
+          loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+            if (loadingProgress == null) {
+              return child;
+            } else {
+              return Center(
+                child: CircularProgressIndicator(color: Colors.blueAccent,
+                  value: loadingProgress.expectedTotalBytes != null
+                      ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                      : null,
+                ),
+              );
+            }
           },
         ),
       ),

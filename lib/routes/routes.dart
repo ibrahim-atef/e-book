@@ -1,8 +1,10 @@
 import 'package:e_book/logic/bindings/admin_home_binding.dart';
+import 'package:e_book/view/screens/admin_screens/admin_home_screen.dart';
   import 'package:e_book/view/screens/user/book_details_screen.dart';
 import 'package:e_book/view/screens/user/user_home_screen.dart';
 import 'package:e_book/view/screens/utiles_screen/unauthorized_screen.dart';
 import '../logic/bindings/auth_binding.dart';
+import '../logic/bindings/user_home_binding.dart';
 import '../services/middlewares_services/auth_middleware.dart';
 import '../view/screens/auth_screen/login_screen.dart';
 import 'package:get/get.dart';
@@ -21,7 +23,7 @@ class Routes {
     GetPage(
         name: loginScreen, page: () => LoginScreen(), binding: AuthBinding()),
 
-    GetPage(name: adminHomeScreen, page: () => UserHomeScreen(), middlewares: [
+    GetPage(name: adminHomeScreen, page: () => AdminHomeScreen(), middlewares: [
       AuthMiddleware(),
     ], bindings: [
       AdminHomeBinding(),
@@ -40,7 +42,7 @@ class Routes {
     ),
      GetPage(
       name: userHomeScreen,
-      page: () => UserHomeScreen(),middlewares: [AuthMiddleware()],
+      page: () => UserHomeScreen(),middlewares: [AuthMiddleware()],bindings: [UserHomeBinding()]
     ),
   ];
 }

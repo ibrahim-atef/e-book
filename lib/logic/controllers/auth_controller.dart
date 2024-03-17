@@ -32,7 +32,7 @@ class AuthController extends GetxController {
     isAdminX = await isAdmin();
     isUserX = await isUser();
     print("$isAdminX $isUserX");
-    // TODO: implement onInit
+
     super.onInit();
   }
 

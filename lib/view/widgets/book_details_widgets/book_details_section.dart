@@ -2,8 +2,12 @@ import 'package:e_book/utils/styles.dart';
 import 'package:e_book/view/widgets/user_widgets/custome_book_image.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/book_model.dart';
+
 class BooksDetailsSection extends StatelessWidget {
-  const BooksDetailsSection({super.key});
+  BooksDetailsSection({required this.book});
+
+  Book book;
 
   @override
   Widget build(BuildContext context) {
@@ -15,15 +19,15 @@ class BooksDetailsSection extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: width * .2),
           child: SizedBox(
             height: width * 0.3,
-            child: const CustomBookImage(
+            child: CustomBookImage(
               imageUrl:
-                  'https://marketplace.canva.com/EAFfSnGl7II/2/0/1003w/canva-elegant-dark-woods-fantasy-photo-book-cover-vAt8PH1CmqQ.jpg',
+                  book.coverImage,
             ),
           ),
         ),
         const SizedBox(height: 43),
-        const Text(
-          'Book Title',
+         Text(
+        book.title  ,
           textAlign: TextAlign.center,
           style: Styles.textStyle30,
         ),
@@ -31,7 +35,7 @@ class BooksDetailsSection extends StatelessWidget {
         Opacity(
           opacity: 0.7,
           child: Text(
-            'Author',
+            book.author,
             style: Styles.textStyle18.copyWith(
               fontStyle: FontStyle.italic,
               fontWeight: FontWeight.w500,
@@ -42,7 +46,7 @@ class BooksDetailsSection extends StatelessWidget {
         Opacity(
           opacity: 0.7,
           child: Text(
-            'Category',
+            book.category,
             style: Styles.textStyle16.copyWith(
               fontStyle: FontStyle.italic,
               fontWeight: FontWeight.w500,
